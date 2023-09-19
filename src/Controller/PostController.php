@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\PostFactory;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
     #[Route(path: "/posts", name: "posts_")]
-    class PostController
+    class PostController extends AbstractController
     {
         #[Route(path: "", name: "all", methods: ["GET"])]
         function all(): Response
@@ -20,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
             $post2->setId("2");
 
             $data = [$post1->asArray(), $post2->asArray()];
-            return new JsonResponse($data, 200, ["Content-Type" => "application/json"]);
+            return $this->json($data, 200, ["Content-Type" => "application/json"]);
             //return $this->json($data, 200, ["Content-Type" => "application/json"])
         }
     }
